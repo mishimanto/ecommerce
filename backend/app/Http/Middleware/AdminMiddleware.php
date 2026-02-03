@@ -16,8 +16,8 @@ class AdminMiddleware
 
         $user = Auth::user();
         
-        if (!$user->hasRole('admin') && !$user->hasRole('staff')) {
-            return response()->json(['message' => 'Unauthorized. Admin access required.'], 403);
+        if (!$user->hasRole('admin')) {
+            return response()->json(['message' => 'Unauthorized. Only Admins allowed.'], 403);
         }
 
         return $next($request);

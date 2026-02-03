@@ -12,6 +12,11 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin'])->group(function ()
     Route::get('/reports/inventory', [AdminController::class, 'inventoryReport']);
     Route::get('/reports/customers', [AdminController::class, 'customerReport']);
     Route::post('/reports/export', [AdminController::class, 'exportReport']);
+
+    Route::get('/dashboard/stats', [AdminController::class, 'dashboardStats']);
+    Route::get('/dashboard/sales-data', [AdminController::class, 'getSalesData']); 
+    Route::get('/dashboard/order-status', [AdminController::class, 'getOrderStatus']); 
+    Route::get('/dashboard/category-distribution', [AdminController::class, 'getCategoryDistribution']); 
     
     // Products
     Route::get('/products', [ProductManagementController::class, 'index']);
