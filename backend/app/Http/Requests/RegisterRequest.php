@@ -18,7 +18,7 @@ class RegisterRequest extends FormRequest
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
             'phone' => 'nullable|string|max:20',
-            'agree_terms' => 'required|accepted'
+            // 'agree_terms' => 'nullable|accepted'
         ];
     }
 
@@ -30,7 +30,7 @@ class RegisterRequest extends FormRequest
             'email.unique' => 'This email is already registered',
             'password.min' => 'Password must be at least 8 characters',
             'password.confirmed' => 'Passwords do not match',
-            'agree_terms.required' => 'You must agree to the terms and conditions'
+            // 'agree_terms.required' => 'You must agree to the terms and conditions'
         ];
     }
 }
