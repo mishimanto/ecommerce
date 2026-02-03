@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\AdminMiddleware; // এই লাইনটি অ্যাড করুন
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,17 +12,18 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
-    ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->api(prepend: [
-            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-        ]);
-
+    ->withMiddleware(function (Middleware $middleware) {
+        
         $middleware->alias([
-            'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
+            'admin' => AdminMiddleware::class,
         ]);
 
-        //
+        $middleware->validateCsrfTokens(except: [
+            'api/*',        
+            'register',    
+            'login',
+        ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
+    ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
